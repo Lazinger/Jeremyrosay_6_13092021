@@ -55,36 +55,44 @@ exports.getAllSauces = (req, res, next) => {
 };
 
 exports.likeSauce = (req, res, next) => {
-	Sauce.findOne({ _id: req.params.id })
+	const userId = req.body.userId;
+	const like = req.body.like;
+	const sauceId = req.params.id;
+	Sauce.findOne({ _id: sauceId })
 		.then((sauce) => {
-			let = likeMessage;
+			// Like Values
+			const newValues = {
+				usersLiked: sauce.usersLiked,
+				usersDisliked: sauce.usersDisliked,
+				likes: 0,
+				dislikes: 0,
+			};
 
-			if (req.body.like === 1 && !sauce.usersLiked.includes(req.body.userId)) {
-				sauce.usersLiked.push(req.body.userId);
-				sauce.likes++;
-				likeMessage = "L'utilisateur aime cette sauce";
+			switch (like) {
+				case 1: // Quand on like
+					newValues.usersLiked.push(userId);
+					break;
+				case -1: // Quand on dislike
+					newValues.usersDisliked.push(userId);
+					break;
+				case 0: // Annulation du like/dislike
+					if (newValues.usersLiked.includes(userId)) {
+						// Annulation du like
+						const index = newValues.usersLiked.indexOf(userId);
+						newValues.usersLiked.splice(index, 1);
+					} else {
+						// Annulation du dislike
+						const index = newValues.usersDisliked.indexOf(userId);
+						newValues.usersDisliked.splice(index, 1);
+					}
+					break;
 			}
-
-			if (req.body.like === -1 && !sauce.usersLiked.includes(req.body.userId)) {
-				sauce.usersLiked.push(req.body.userId);
-				sauce.dislikes++;
-				likeMessage = "L'utilisateur n'aime pas cette sauce";
-			}
-
-			if (req.body.like === 0) {
-				if (sauce.usersLiked.includes(req.body.userId)) {
-					sauce.usersLiked.pull(req.body.userId);
-					sauce.likes--;
-					likeMessage = "L'utilisateur n'aime plus cette sauce";
-				} else if (sauce.usersLiked.includes(req.body.userId)) {
-					sauce.usersDisliked.pull(req.body.userId);
-					sauce.dislikes--;
-					likeMessage = "L'utilisateur à retiré son Dislike";
-				}
-			}
-			sauce
-				.save()
-				.then(() => res.status(200).json({ message: likeMessage }))
+			// Calcul du nombre de likes / dislikes
+			newValues.likes = newValues.usersLiked.length;
+			newValues.dislikes = newValues.usersDisliked.length;
+			// Mise à jour de la sauce avec les nouvelles valeurs
+			Sauce.updateOne({ _id: sauceId }, newValues)
+				.then(() => res.status(200).json({ message: "Sauce notée !" }))
 				.catch((error) => res.status(400).json({ error }));
 		})
 		.catch((error) => res.status(500).json({ error }));
