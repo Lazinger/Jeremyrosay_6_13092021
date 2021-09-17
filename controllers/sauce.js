@@ -58,8 +58,14 @@ exports.likeSauce = (req, res, next) => {
 	const userId = req.body.userId;
 	const like = req.body.like;
 	const sauceId = req.params.id;
+	console.log(userId);
+	console.log(like);
+	console.log(sauceId);
+
 	Sauce.findOne({ _id: sauceId })
+
 		.then((sauce) => {
+			console.log(sauce);
 			// Like Values
 			const newValues = {
 				usersLiked: sauce.usersLiked,
@@ -67,6 +73,7 @@ exports.likeSauce = (req, res, next) => {
 				likes: 0,
 				dislikes: 0,
 			};
+			console.log(newValues);
 
 			switch (like) {
 				case 1: // Quand on like
@@ -90,10 +97,12 @@ exports.likeSauce = (req, res, next) => {
 			// Calcul du nombre de likes / dislikes
 			newValues.likes = newValues.usersLiked.length;
 			newValues.dislikes = newValues.usersDisliked.length;
+			console.log(newValues);
 			// Mise à jour de la sauce avec les nouvelles valeurs
 			Sauce.updateOne({ _id: sauceId }, newValues)
 				.then(() => res.status(200).json({ message: "Sauce notée !" }))
 				.catch((error) => res.status(400).json({ error }));
 		})
+
 		.catch((error) => res.status(500).json({ error }));
 };

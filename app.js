@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+const sanitize = require("express-mongo-sanitize");
+const xss = require("xss-clean");
 
 require("dotenv").config();
 
@@ -35,6 +37,8 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
+app.use(sanitize());
+app.use(xss());
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/api/auth", userRoutes);
 app.use("/api/sauces", sauceRoutes);
