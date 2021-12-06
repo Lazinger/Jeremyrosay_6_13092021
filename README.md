@@ -8,12 +8,15 @@ Construction d'une API en backend pour le site HOT TAKES qui est une galerie de 
 
 ## Cahier des charges
 
-- [repo du frontend](https://github.com/Lazinger/Jeremyrosay_6_13092021)
-- [les spécifications pour l'API](https://github.com/LyesHarrar/Piiquante/blob/master/Requirements_DW_P6.pdf)
+- [repo du frontend](https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6)
+
+## Specifications
+
+https://github.com/LyesHarrar/Piiquante/blob/master/Requirements_DW_P6.pdf
 
 ## Installation
 
-- Tout d'abord clonez le repo de l'API dans un dossier backend, puis faire de même pour le repo frontend dont le lien est fourni ci dessus dans un dossier frontend, les deux séparément dans votre dossier principal comme ceci : 
+- Tout d'abord clonez le repo de l'API dans un dossier backend, puis faire de même pour le repo frontend dont le lien est fourni ci dessus dans un dossier frontend, les deux séparément dans votre dossier principal comme ceci :
 
         |votreDossier
             |--> backend
