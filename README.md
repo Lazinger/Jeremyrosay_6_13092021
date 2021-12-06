@@ -8,11 +8,11 @@ Construction d'une API en backend pour le site HOT TAKES qui est une galerie de 
 
 ## Cahier des charges
 
-- [repo du frontend](https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6)
+- [Repository du frontend](https://github.com/OpenClassrooms-Student-Center/Web-Developer-P6)
 
 ## Specifications
 
-https://github.com/Lazinger/Jeremyrosay_6_13092021/blob/main/Requirements_DW_P6.pdf
+- [Lien vers les spécifications :](https://github.com/Lazinger/Jeremyrosay_6_13092021/blob/main/Requirements_DW_P6.pdf)
 
 ## Installation
 
