@@ -12,7 +12,7 @@ Construction d'une API en backend pour le site HOT TAKES qui est une galerie de 
 
 ## Specifications
 
-- [Lien vers les spécifications :](https://github.com/Lazinger/Jeremyrosay_6_13092021/blob/main/Requirements_DW_P6.pdf)
+- [Lien vers les spécifications](https://github.com/Lazinger/Jeremyrosay_6_13092021/blob/main/Requirements_DW_P6.pdf)
 
 ## Installation
 
