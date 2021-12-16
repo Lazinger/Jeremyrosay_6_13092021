@@ -14,16 +14,20 @@ exports.signup = (req, res, next) => {
 			user
 				.save()
 				.then(() => res.status(201).json({ message: "Utilisateur créé !" }))
-				.catch((error) => res.status(400).json({ error }));
+				.catch((error) => res.status(400).json({ error: "Adresse mail déja utilisé" }));
 		})
-		.catch((error) => res.status(500).json({ error }));
+		.catch((error) => res.status(500).json({ error: "Erreur server" }));
 };
 
 exports.login = (req, res, next) => {
 	User.findOne({ email: req.body.email })
 		.then((user) => {
 			if (!user) {
-				return res.status(401).json({ error: "Utilisateur non trouvé" });
+				return res.status(401).json({
+					error: {
+						message: "Utilisateur non trouvé",
+					},
+				});
 			}
 			bcrypt
 				.compare(req.body.password, user.password)
@@ -36,7 +40,7 @@ exports.login = (req, res, next) => {
 						token: jwt.sign({ userId: user._id }, `${AUTH_TOKEN}`, { expiresIn: "24h" }),
 					});
 				})
-				.catch((error) => res.status(500).json({ error }));
+				.catch((error) => res.status(500).json({ error: "Erreur server" }));
 		})
-		.catch((error) => res.status(500).json({ error }));
+		.catch((error) => res.status(500).json({ error: "Erreur server" }));
 };
